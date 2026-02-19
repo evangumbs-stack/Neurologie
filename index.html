@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiches de Vavan</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+body{background:#f0f4f8;color:#0d1b2a;scroll-behavior:smooth;overflow-x:hidden;}
+
+/* =============== FOND MEDICAL PARALLAX =============== */
+#bg-layer{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:url('images/neurons_bg.png') center/cover no-repeat;
+    opacity:0.05;z-index:-1;transform:translateZ(0);
+}
+
+/* =============== HEADER ================= */
+header{
+    background:linear-gradient(90deg,#1b263b,#0d1b2a);
+    color:white;padding:70px 20px;text-align:center;overflow:hidden;position:relative;
+}
+header h1{font-size:3rem;margin-bottom:15px;animation: fadeDown 1s ease;}
+header p{color:#a0c4ff;font-size:1.2rem;margin-bottom:25px;animation: fadeDown 1.5s ease;}
+header .btn{
+    display:inline-block;padding:12px 30px;background:#4da6ff;color:white;border-radius:10px;font-weight:bold;transition:0.3s;
+}
+header .btn:hover{background:#1b263b;color:#4da6ff;transform:scale(1.08);box-shadow:0 0 20px #4da6ff;}
+
+/* =============== MENU STICKY ================= */
+nav{
+    position:sticky;top:0;background:#0d1b2a;color:white;display:flex;justify-content:center;gap:20px;padding:12px 0;z-index:1000;
+}
+nav a{color:white;text-decoration:none;font-weight:bold;transition:0.3s;position:relative;}
+nav a.active::after{
+    content:"";position:absolute;bottom:-4px;left:0;width:100%;height:3px;background:#4da6ff;border-radius:2px;
+}
+nav a:hover{color:#4da6ff;}
+
+/* =============== ANIMATIONS ================= */
+@keyframes fadeDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes glow{0%,100%{box-shadow:0 0 15px #4da6ff;}50%{box-shadow:0 0 30px #4da6ff;}}
+
+/* =============== SECTIONS ================= */
+main{max-width:1200px;margin:50px auto;padding:0 20px;}
+section{margin-bottom:120px;position:relative;}
+section h2{font-size:2rem;color:#0d1b2a;margin-bottom:30px;border-bottom:2px solid #1b263b;padding-bottom:5px;}
+
+/* =============== FILTRES ================= */
+.filter-buttons{display:flex;justify-content:center;gap:15px;margin-bottom:30px;flex-wrap:wrap;}
+.filter-buttons button{
+    padding:10px 22px;border:none;border-radius:10px;background:#0d1b2a;color:white;font-weight:bold;cursor:pointer;transition:0.3s;
+}
+.filter-buttons button.active, .filter-buttons button:hover{background:#4da6ff;color:#0d1b2a;transform:scale(1.05);box-shadow:0 0 10px #4da6ff;}
+
+/* =============== GRID FICHES ================= */
+.fiche-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;
+}
+.fiche-card{
+    background:white;border-radius:15px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,0.1);
+    transition: transform 0.5s, box-shadow 0.5s;cursor:pointer;
+    opacity:0;transform:translateY(30px);
+}
+.fiche-card.visible{opacity:1;transform:translateY(0);}
+.fiche-card img{width:100%; height:180px; object-fit:cover;transition: transform 0.4s, filter 0.4s;}
+.fiche-card:hover img{transform:scale(1.08);filter:brightness(1.1);}
+.fiche-card .content{padding:15px;}
+.fiche-card h3{margin-bottom:10px;font-size:1.2rem;}
+.fiche-card a{
+    display:inline-block;padding:10px 18px;background:#0d1b2a;color:white;border-radius:8px;font-weight:bold;transition:0.3s;
+}
+.fiche-card a:hover{animation:glow 1s infinite;color:#4da6ff;background:#1b263b;}
+
+/* =============== FORMULAIRE CONTACT ================= */
+.contact-form{
+    background:white;padding:35px;border-radius:15px;box-shadow:0 6px 25px rgba(0,0,0,0.15);max-width:650px;margin:0 auto;
+    opacity:0;transform:translateY(30px);transition:0.8s;
+}
+.contact-form.visible{opacity:1;transform:translateY(0);}
+.contact-form h3{text-align:center;margin-bottom:20px;}
+.contact-form input, .contact-form textarea{
+    width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:10px;
+}
+.contact-form button{
+    padding:12px 28px;background:#0d1b2a;color:white;border:none;border-radius:10px;font-weight:bold;cursor:pointer;transition:0.3s;
+}
+.contact-form button:hover{animation:glow 1s infinite;color:#4da6ff;background:#1b263b;}
+
+/* =============== FOOTER ================= */
+footer{text-align:center;padding:30px;background:#1b263b;color:white;}
+footer a{color:#4da6ff;}
+
+/* =============== RESPONSIVE ================= */
+@media(max-width:600px){
+    header h1{font-size:2rem;}
+    section h2{font-size:1.5rem;}
+    .fiche-card img{height:150px;}
+}
+</style>
+</head>
+<body>
+
+<div id="bg-layer"></div>
+
+<header>
+    <h1>Atlas de Sémiologie Neurologique</h1>
+    <p>Fiches interactives pour étudiants en médecine</p>
+    <a href="#fiches" class="btn">Voir les fiches</a>
+</header>
+
+<nav>
+    <a href="#fiches" class="active">Fiches</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<main>
+    <!-- FILTRES -->
+    <section id="fiches">
+        <h2>Fiches de Sémiologie</h2>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">Tous</button>
+            <button class="filter-btn" data-category="snp">SNP</button>
+            <button class="filter-btn" data-category="epilepsie">Épilepsie</button>
+            <button class="filter-btn" data-category="parkinson">Parkinson</button>
+            <button class="filter-btn" data-category="hemisphere">Syndromes hémisphériques</button>
+            <button class="filter-btn" data-category="topo">Syndromes topographiques</button>
+            <button class="filter-btn" data-category="avc">AVC</button>
+        </div>
+        <div class="fiche-grid">
+            <div class="fiche-card" data-category="snp"><img src="images/snp.jpg" alt="SNP"><div class="content"><h3>Sémiologie analytique du SNP</h3><a href="pdfs/SNP.pdf" target="_blank">Voir PDF</a></div></div>
+            <div class="fiche-card" data-category="epilepsie"><img src="images/epilepsie.jpg" alt="Épilepsie"><div class="content"><h3>Épilepsie</h3><a href="pdfs/Epilepsie.pdf" target="_blank">Voir PDF</a></div></div>
+            <div class="fiche-card" data-category="parkinson"><img src="images/parkinson.jpg" alt="Parkinson"><div class="content"><h3>Parkinson</h3><a href="pdfs/Parkinson.pdf" target="_blank">Voir PDF</a></div></div>
+            <div class="fiche-card" data-category="hemisphere"><img src="images/syndromes_hemispheres.jpg" alt="Syndromes hémisphériques"><div class="content"><h3>Syndromes hémisphériques</h3><a href="pdfs/SyndromesHemisphere.pdf" target="_blank">Voir PDF</a></div></div>
+            <div class="fiche-card" data-category="topo"><img src="images/syndromes_topographiques.jpg" alt="Syndromes topographiques"><div class="content"><h3>Syndromes topographiques</h3><a href="pdfs/SyndromesTopographiques.pdf" target="_blank">Voir PDF</a></div></div>
+            <div class="fiche-card" data-category="avc"><img src="images/avc.jpg" alt="AVC"><div class="content"><h3>AVC</h3><a href="pdfs/AVC.pdf" target="_blank">Voir PDF</a></div></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contactez-moi</h2>
+        <form class="contact-form" action="mailto:tonemail@example.com" method="post" enctype="text/plain">
+            <h3>Des questions sur les fiches ?</h3>
+            <input type="text" name="name" placeholder="Votre nom" required>
+            <input type="email" name="email" placeholder="Votre email" required>
+            <textarea name="message" rows="6" placeholder="Votre message..." required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Evan Gums - <a href="mailto:contact@neurosemio.com">Contact</a></p>
+</footer>
+
+<script>
+// SCROLL ANIMATION
+const cards = document.querySelectorAll('.fiche-card');
+const form = document.querySelector('.contact-form');
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('visible');}
+    });
+},{threshold:0.1});
+cards.forEach(c=>observer.observe(c));
+observer.observe(form);
+
+// FILTRE
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        filterBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.category;
+        cards.forEach(c=>{
+            c.style.display = (cat==='all'||c.dataset.category===cat)?'block':'none';
+        });
+    });
+});
+
+// MENU ACTIVE
+const sections = document.querySelectorAll('main section');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', ()=>{
+    let current = '';
+    sections.forEach(section=>{
+        const top = section.offsetTop-100;
+        if(pageYOffset>=top){current=section.id;}
+    });
+    navLinks.forEach(link=>{
+        link.classList.remove('active');
+        if(link.getAttribute('href')==`#${current}`){link.classList.add('active');}
+    });
+});
+
+// PARALLAX LÉGER
+window.addEventListener('scroll', ()=>{
+    const bg = document.getElementById('bg-layer');
+    bg.style.transform = `translateY(${window.scrollY*0.05}px)`;
+});
+</script>
+
+</body>
+</html>
